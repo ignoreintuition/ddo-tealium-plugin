@@ -1,0 +1,13 @@
+{
+    "id" : "digitalDataObject",
+    "title": "Inspect the Digital Data Object",
+    "scripts": {
+        "alert" : {
+            "title": "Inspect DDO",
+            "button_label": "Inspect",
+            "description": "Gives details about the Digital Data Object.",
+            "template": "<h4>Digital Data Object</h4><table class ='table table-hover'><thead> <tr><td>Key</td><td>Value</td></tr><thead><tbody><tr>{{#each this}}<td>{{@key}}</td> <td>{{this}}</td></tr>{{/each}}<tbody></table>",
+            "js": "var result = {};function recurse (cur, prop) {if (Object(cur) !== cur) {result[prop] = cur;} else if (Array.isArray(cur)) {for(var i=0, l=cur.length; i<l; i++)recurse(cur[i], prop + '[' + i + ']');if (l == 0)result[prop] = [];} else {var isEmpty = true;for (var p in cur) {isEmpty = false;recurse(cur[p], prop ? prop+'.'+p : p);}if (isEmpty && prop)result[prop] = {};}}recurse(digitalData, '');tealiumTools.send( result );"
+        }
+    }
+}
