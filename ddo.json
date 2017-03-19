@@ -1,13 +1,13 @@
 {
     "id" : "digitalDataObject",
-    "title": "Inspect the Digital Data Object",
+    "title": "Inspect the DDO",
     "scripts": {
         "alert" : {
             "title": "Inspect DDO",
             "button_label": "Inspect",
             "description": "Gives details about the Digital Data Object.",
             "template": "<h4>Digital Data Object</h4><table class ='table table-hover'><thead> <tr><td>Key</td><td>Value</td></tr><thead><tbody><tr>{{#each this}}<td>{{@key}}</td> <td>{{this}}</td></tr>{{/each}}<tbody></table>",
-            "js": "var result = {};function recurse (cur, prop) {if (Object(cur) !== cur) {result[prop] = cur;} else if (Array.isArray(cur)) {for(var i=0, l=cur.length; i<l; i++)recurse(cur[i], prop + '[' + i + ']');if (l == 0)result[prop] = [];} else {var isEmpty = true;for (var p in cur) {isEmpty = false;recurse(cur[p], prop ? prop+'.'+p : p);}if (isEmpty && prop)result[prop] = {};}}recurse(digitalData, '');tealiumTools.send( result );"
+            "js": "function recurse(r,e){if(Object(r)!==r)result[e]=r; else if(Array.isArray(r)){for(var t=0,u=r.length;t<u;t++)recurse(r[t],e+'['+t+']'); 0==u&&(result[e]=[])}else{var s=!0; for(var l in r)s=!1,recurse(r[l],e?e+'.'+l:l); s&&e&&(result[e]={})}}var result={}; recurse(window.digitalData,''); var output={}; Object.keys(result).forEach(function(r){result[r]&&(output[r]=result[r])}),tealiumTools.send(output)"
         }
     }
 }

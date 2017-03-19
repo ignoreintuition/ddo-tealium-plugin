@@ -15,5 +15,12 @@ function recurse(cur, prop) {
         if (isEmpty && prop) result[prop] = {};
     }
 }
-recurse(data, "");
-tealiumTools.send(result);
+recurse(window.digitalData, "");
+var output = {};
+Object.keys(result).forEach(function(key){
+	if(result[key]) {
+		output[key] = result[key];
+	}
+});
+tealiumTools.send(output);
+
